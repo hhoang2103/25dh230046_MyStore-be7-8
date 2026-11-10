@@ -1,0 +1,50 @@
+﻿@model _25dh230046_MyStore.Models.ViewModel.HomeProductVM
+@using PagedList.Mvc;
+
+<link rel="stylesheet" type="text/css" href="~/Content/MyStyle/CustomerHome.css" />
+<!--Hiển thị danh sách sản phẩm-->
+@if (Model.NewProducts != null && Model.NewProducts.Any())
+{
+    <section class="container-fluid listProduct">
+        <h2>Sản phẩm mới</h2>
+        <div class="list-container">
+            @foreach (var product in Model.NewProducts)
+            {
+                <div class="listproduct-item">
+                    <div>
+                        <a href="@Url.Action("ProductDetails", "Home", new { id = product.ProductID })">
+                            <img src="@Html.DisplayFor(modelItem => product.ProductImage)" />
+                        </a>
+                    </div>
+                    <div>
+                        <p class="proPrice">
+                            @Html.DisplayFor(modelItem => product.ProductPrice)
+                        </p>
+                        <p class="proName">
+                            @Html.DisplayFor(modelItem => product.ProductName)
+                        </p>
+                        <p class="proCate">
+                            @Html.DisplayFor(modelItem => product.Category.CategoryName)
+                        </p>
+                        <p class="proSale">
+                            Đã bán:&nbsp; @Html.DisplayFor(modelItem => product.OrderDetails.Count)
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+    <!--Hiển thị phân trang-->
+    <div class="pagination-container">
+        @Html.PagedListPager(Model.NewProducts, page => Url.Action("Index", new
+        {
+            page,
+                searchTerm = Model.SearchTerm,}))
+    </div>
+
+}
+else
+{
+    <p>Không tìm được sản phẩm nào phù hợp.</p>
+}
