@@ -5,16 +5,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-
-
-<h2 class="bg-success">CHI TIẾT SẢN PHẨM</h2>
-
+<h2 class="container-fluid">CHI TIẾT SẢN PHẨM</h2>
 @Html.Partial("PVProductInfo", Model)
-
 <div class="form-group">
-    <div class="col-md-offset-3 col-md-9">
-        @Html.ActionLink("Sửa", "Edit", new { id = Model.CategoryID }, new { @class = "btn btn-primary " }) |
-        @Html.ActionLink("Quay lại danh sách", "Index", null, new { @class = "btn btn-primary " })
+    <div class="col-md-offset-2 col-md-10">
+        @Html.ActionLink("Sửa", "Edit", new { id = Model.ProductID }, new { @class = "btn btn-primary btn-sm mb-2" })
+        @Html.ActionLink("Quay về", "Index", null, new { @class = "btn btn-primary btn-sm mb-2" })
     </div>
 </div>
 

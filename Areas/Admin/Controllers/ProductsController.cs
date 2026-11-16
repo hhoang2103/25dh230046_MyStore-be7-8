@@ -1,15 +1,14 @@
 ﻿using _25dh230046_MyStore.Models;
 using _25dh230046_MyStore.Models.ViewModel;
-using System;
-using System.Collections.Generic;
+using PagedList;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using PagedList;
-using PagedList.Mvc;
+
+
 
 namespace _25dh230046_MyStore.Areas.Admin.Controllers
 {
@@ -18,62 +17,60 @@ namespace _25dh230046_MyStore.Areas.Admin.Controllers
         private MyStoreEntities db = new MyStoreEntities();
 
         // GET: Admin/Products
-        public ActionResult Index(string searchTerm, decimal? minPrice,
-    decimal? maxPrice, string sortOrder, int? page)
+        public ActionResult Index(string SearchTerm, decimal? minPrice, decimal? maxPrice, string sortOrder, int? page) //SearchTerm này đặt thế thôi chứ sẽ truyền từ trang view Index vào đây
         {
-            var Model = new ProductSearchVM();
+
+            var model = new ProductSearchVM();
             var products = db.Products.AsQueryable();
-            // Tìm kiếm sản phẩm dựa trên từ khóa
-            if (!string.IsNullOrEmpty(searchTerm))
+
+            //không dùng cái index mặc định nữa, mà lọc lại những cái tiêu chí mình chọn
+            //var products = db.Products.Include(p => p.Category);
+            if (!string.IsNullOrEmpty(SearchTerm)) //Nếu SearchTerm không null
             {
-                Model.SearchTerm = searchTerm;
-                products = products.Where(p => p.ProductName.Contains(searchTerm) ||
-                p.ProductDescription.Contains(searchTerm) ||
-                p.Category.CategoryName.Contains(searchTerm));
+                model.SearchTerm = SearchTerm;
+                //Tìm kiếm sản phẩm dựa trên SearchTerm có nằm trong Produc
+                products = products.Where(p => //Đây là lambda, là một hàm ẩn danh dùng khi không cần phải định danh riêng và dùng trong thời gian ngắn
+                 p.ProductName.Contains(SearchTerm) ||
+                 p.ProductDescription.Contains(SearchTerm) ||
+                 p.Category.CategoryName.Contains(SearchTerm)
+                );
             }
-            // Tìm kiếm sản phẩm dựa trên giá tối thiểu
+            //Tìm kiếm sản phẩm dựa trên giá tối thiểu
             if (minPrice.HasValue)
             {
-                Model.MinPrice = minPrice.Value;
+                model.MinPrice = minPrice.Value;
                 products = products.Where(p => p.ProductPrice >= minPrice.Value);
             }
-            // Tìm kiếm sản phẩm dựa trên giá tối đa
+            //Tìm kiếm sản phẩm dựa trên giá tối đa
             if (maxPrice.HasValue)
             {
-                Model.MaxPrice = maxPrice.Value;
+                model.MaxPrice = maxPrice.Value;
                 products = products.Where(p => p.ProductPrice <= maxPrice.Value);
             }
-            // Áp dụng sắp xếp dựa trên lựa chọn của người dùng
+            //Lựa chọn của người dùng
             switch (sortOrder)
             {
-                case "name_asc":
-                    products = products.OrderBy(p => p.ProductName);
-                    break;
-                case "name_desc":
-                    products = products.OrderByDescending(p => p.ProductName);
-                    break;
-                case "price_asc":
-                    products = products.OrderBy(p => p.ProductPrice);
-                    break;
-                case "price_desc":
-                    products = products.OrderByDescending(p => p.ProductPrice);
-                    break;
-                default: // Mặc định sắp xếp theo tên
-                    products = products.OrderBy(p => p.ProductName);
-                    break;
+                case "name_asc": products = products.OrderBy(p => p.ProductName); break;
+                case "name_desc": products = products.OrderByDescending(p => p.ProductName); break;
+                case "price_asc": products = products.OrderBy(p => p.ProductPrice); break;
+                case "price_desc": products = products.OrderByDescending(p => p.ProductPrice); break;
+                default: products = products.OrderBy(p => p.ProductName); break;
+
             }
-            Model.SortOrder = sortOrder;
-
-            // Đoạn code liên quan tới phân trang
-            // Lấy số trang hiện tại (mặc định là trang 1 nếu không có giá trị)
+            model.SortOrder = sortOrder;
+            //Đoạn code liên quan tới phân trang
+            //Lấy số trang hiện tại (mặc định là trang 1 nếu không có giá trị)
             int pageNumber = page ?? 1;
-            int pageSize = 2; // Số sản phẩm mỗi trang
+            int pageSize = 2;//Số sản phẩm mỗi trang
 
-            // đóng câu lệnh này, sử dụng ToPagedList để lấy danh sách đã phân trang
+            //đóng câu lệnh này, sử dụng ToPagedList để lấy phân trang
             //model.Products = products.ToList();
-            Model.Products = products.ToPagedList(pageNumber, pageSize);
 
-            return View(Model);
+            model.Products = products.ToPagedList(pageNumber, pageSize);
+            return View(model);
+
+
+            //return View(products.ToList());
         }
 
         // GET: Admin/Products/Details/5
@@ -103,10 +100,22 @@ namespace _25dh230046_MyStore.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,CategoryID,ProductName,ProductPrice,ProductImage,ProductDescription")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,CategoryID,ProductName,ProductPrice,ProductImage,ProductDescription, UploadImage")] Product product)
         {
+            if (product.UploadImage == null)
+            {
+                return Content("LỖI: Không nhận được file từ View!");
+            }
+
             if (ModelState.IsValid)
             {
+                if (product.UploadImage != null)
+                {
+                    string filename = Path.GetFileName(product.UploadImage.FileName);
+                    string savePath = "~/Content/images/";
+                    product.ProductImage = savePath + filename;
+                    product.UploadImage.SaveAs(Path.Combine(Server.MapPath(savePath), filename));
+                }
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -137,10 +146,18 @@ namespace _25dh230046_MyStore.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,CategoryID,ProductName,ProductPrice,ProductImage,ProductDescription")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,CategoryID,ProductName,ProductPrice,ProductImage,ProductDescription,UploadImage")] Product product)
         {
+
             if (ModelState.IsValid)
             {
+                if (product.UploadImage != null)
+                {
+                    string filename = Path.GetFileName(product.UploadImage.FileName);
+                    string savePath = "~/Content/images/";
+                    product.ProductImage = savePath + filename;
+                    product.UploadImage.SaveAs(Path.Combine(Server.MapPath(savePath), filename));
+                }
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

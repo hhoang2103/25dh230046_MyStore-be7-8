@@ -1,1 +1,49 @@
-﻿
+﻿@model _25dh230046_MyStore.Models.ViewModel.HomeProductVM
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- NHÚNG FILE CSS TỪ BÊN NGOÀI (Giống bài giảng) -->
+<link rel="stylesheet" type="text/css" href="~/Content/myStyle/CustomerHome.css" />
+
+<!-- 1. Đẩy nội dung vào vùng MENU của Layout -->
+@section Menu {
+    <h3>Danh mục sách</h3>
+    <select class="form-control" style="width: 100%; padding: 5px;">
+        <option>OPTION 1</option>
+        <option>OPTION 2</option>
+        <option>OPTION 3</option>
+    </select>
+}
+
+<!-- 2. Đẩy nội dung vào vùng BANNER của Layout -->
+@section Banner {
+    <div class="banner">
+        <div class="banner-container">
+            <h2>Chào mừng đến với Trang web Sách online</h2>
+            <p>Thư viện sách trực tuyến với hàng ngàn đầu sách chất lượng.</p>
+            <a href="#" class="btnBanner">Bắt đầu mua sắm</a>
+        </div>
+    </div>
+}
+
+<!-- 3. NỘI DUNG CHÍNH (Nằm trong vùng .content của Layout) -->
+<section class="search-section">
+    <h2>Tìm kiếm sản phẩm</h2>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
+        <div class="search-container">
+            @Html.EditorFor(model => model.SearchTerm, new { htmlAttributes = new { @id = "search-input", @class = "search-input", placeholder = "Nhập từ khóa ... " } })
+            <button type="submit" class="search-button">Tìm kiếm</button>
+        </div>
+    }
+</section>
+
+<!-- 4. GỌI CÁC PARTIAL VIEW (Giống bài giảng) -->
+<!-- Phần sản phẩm nổi bật -->
+@Html.Partial("PVFeatureProduct", Model)
+
+<!-- Phần sản phẩm mới -->
+@Html.Partial("PVNewProduct", Model)

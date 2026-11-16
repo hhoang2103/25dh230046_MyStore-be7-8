@@ -1,0 +1,14 @@
+﻿@model _25dh230046_MyStore.Models.ViewModel.HomeProductVM
+
+<section class="container-fluid my-4">
+    <h2>Danh mục sản phẩm</h2>
+    <div class="d-flex flex-wrap gap-2">
+        @foreach (var c in Model.Categories)
+        {
+            <a class="btn btn-outline-primary"
+               href="@Url.Action("Index", "Home", new { searchTerm = c.CategoryName })">
+                @c.CategoryName
+            </a>
+        }
+    </div>
+</section>

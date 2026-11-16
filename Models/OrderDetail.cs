@@ -11,7 +11,7 @@ namespace _25dh230046_MyStore.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class OrderDetail
     {
         public int ID { get; set; }
@@ -19,9 +19,9 @@ namespace _25dh230046_MyStore.Models
         public int OrderID { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public Nullable<decimal> TotalPrice { get; set; }
-
+    
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
+        public decimal TotalPrice { get; internal set; }
     }
 }

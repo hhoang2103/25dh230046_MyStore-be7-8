@@ -139,61 +139,71 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CartController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Views\UsersController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OderDetailsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Category.cs">
-      <DependentUpon>MyStoreModel.tt</DependentUpon>
+      <DependentUpon>MyStore.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CheckoutVM.cs" />
     <Compile Include="Models\Customer.cs">
-      <DependentUpon>MyStoreModel.tt</DependentUpon>
+      <DependentUpon>MyStore.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoginVM.cs" />
-    <Compile Include="Models\Metadata.cs" />
-    <Compile Include="Models\MyStoreModel.Context.cs">
+    <Compile Include="Models\MyStore.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MyStoreModel.Context.tt</DependentUpon>
+      <DependentUpon>MyStore.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MyStoreModel.cs">
+    <Compile Include="Models\MyStore.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MyStoreModel.tt</DependentUpon>
+      <DependentUpon>MyStore.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MyStoreModel.Designer.cs">
+    <Compile Include="Models\MyStore.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MyStoreModel.edmx</DependentUpon>
+      <DependentUpon>MyStore.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
-      <DependentUpon>MyStoreModel.tt</DependentUpon>
+      <DependentUpon>MyStore.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderController.cs" />
     <Compile Include="Models\OrderDetail.cs">
-      <DependentUpon>MyStoreModel.tt</DependentUpon>
+      <DependentUpon>MyStore.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PartialClasses.cs" />
-    <Compile Include="Models\PersonalMenuVM.cs" />
     <Compile Include="Models\Product.cs">
-      <DependentUpon>MyStoreModel.tt</DependentUpon>
+      <DependentUpon>MyStore.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductDetailVM.cs" />
-    <Compile Include="Models\RegisterVM.cs" />
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>MyStoreModel.tt</DependentUpon>
+      <DependentUpon>MyStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>MyStoreModel.tt</DependentUpon>
+      <DependentUpon>MyStore.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HomeProductVM.cs" />
-    <Compile Include="Models\ProductSearchVM.cs" />
+    <Compile Include="Models\ViewModel\GioHang\Cart.cs" />
+    <Compile Include="Models\ViewModel\GioHang\CartItem.cs" />
+    <Compile Include="Models\ViewModel\DatHang\CheckoutVM.cs" />
+    <Compile Include="Models\ViewModel\GioHang\CartService.cs" />
+    <Compile Include="Models\ViewModel\LoginVM.cs" />
+    <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\PersonalMenuVM.cs" />
+    <Compile Include="Models\ViewModel\ProductDetailVM.cs" />
+    <Compile Include="Models\ViewModel\RegisterVM.cs" />
+    <Compile Include="Models\ViewModel\HomeProductVM.cs" />
+    <Compile Include="Models\ViewModel\ProductSearchVM.cs" />
+    <Compile Include="Models\ViewModel\ChangePassWordVM.cs" />
+    <Compile Include="Models\ViewModel\ProfileVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,20 +223,21 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\MyStyle\CustomerHome.css" />
+    <Content Include="Content\Home\CustomerHome.css" />
+    <Content Include="Content\Home\MyStyle.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\MyStoreModel.Context.tt">
+    <Content Include="Models\MyStore.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MyStoreModel.edmx</DependentUpon>
-      <LastGenOutput>MyStoreModel.Context.cs</LastGenOutput>
+      <DependentUpon>MyStore.edmx</DependentUpon>
+      <LastGenOutput>MyStore.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\MyStoreModel.tt">
+    <Content Include="Models\MyStore.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MyStoreModel.edmx</DependentUpon>
-      <LastGenOutput>MyStoreModel.cs</LastGenOutput>
+      <DependentUpon>MyStore.edmx</DependentUpon>
+      <LastGenOutput>MyStore.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -234,13 +245,6 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\MyStoreModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MyStoreModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\MyStoreModel.edmx.diagram">
-      <DependentUpon>MyStoreModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
@@ -257,9 +261,37 @@
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\PVCreateEditProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Products\PVProductInfo.cshtml" />
-    <Content Include="Areas\Admin\Views\Home\ProductDetails.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Register.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\PVDetailsDeleteCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderDetails\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderDetails\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderDetails\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderDetails\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderDetails\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <EntityDeploy Include="Models\MyStore.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MyStore.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\MyStore.edmx.diagram">
+      <DependentUpon>MyStore.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\image1.webp" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -281,19 +313,28 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\PVListProduct.cshtml" />
-    <Content Include="Views\Shared\PVFeatureProduct.cshtml" />
-    <Content Include="Views\Shared\PVNewProduct.cshtml" />
+    <Content Include="Views\Home\PVFeatureProduct.cshtml" />
+    <Content Include="Views\Home\PVNewProduct.cshtml" />
     <Content Include="Views\Order\OrderSuccess.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Home\ProductDetails.cshtml" />
+    <Content Include="Views\Home\PVRelatedProduct.cshtml" />
+    <Content Include="Views\Home\PVTopProduct.cshtml" />
+    <Content Include="Views\Order\MyOrder.cshtml" />
+    <Content Include="Views\Order\CheckOut.cshtml" />
+    <Content Include="Views\Home\PVCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\Login\" />
+    <Folder Include="Areas\Admin\Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
